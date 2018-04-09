@@ -21,10 +21,14 @@ import com.chf.wanandroid.R;
 import com.chf.wanandroid.base.BaseToolBarActivity;
 import com.chf.wanandroid.mvp.presenter.MainActivityPresenter;
 import com.chf.wanandroid.mvp.view.MainActivityView;
+import com.chf.wanandroid.ui.Events.RefreshEvent;
 import com.chf.wanandroid.ui.fragment.ClassFragment;
 import com.chf.wanandroid.ui.fragment.HomeFragment;
 import com.chf.wanandroid.ui.fragment.HotFragment;
 import com.chf.wanandroid.ui.utils.StringUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -72,10 +76,9 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
     DrawerLayout mDrawLayout;
 
 
-
     @Override
     public void initView() {
-
+        EventBus.getDefault().register(this);
         initFragment(0);
         mainHomeIv.setImageResource(R.drawable.icon_home_blue);
         mainHomeTv.setVisibility(View.VISIBLE);
@@ -319,13 +322,19 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
     }
 
     public static void actionStar(Activity context) {
-        Intent intent = new Intent(context,MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+    }
+
+    @Subscribe
+    public void refreshEvent(RefreshEvent event) {
+        presenter.refreshLayout(event,drawQuitLoginTv);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         mDrawLayout.removeDrawerListener(presenter.mSimpleDrawerListener);
     }
 }

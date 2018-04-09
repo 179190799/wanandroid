@@ -5,24 +5,32 @@ import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chf.wanandroid.R;
 import com.chf.wanandroid.base.BaseToolBarActivity;
+import com.chf.wanandroid.mvp.model.bean.UserBean;
 import com.chf.wanandroid.mvp.presenter.LoginPresenter;
 import com.chf.wanandroid.mvp.view.LoginView;
+import com.chf.wanandroid.ui.base.BaseConfig;
+import com.chf.wanandroid.ui.utils.SharedPreferencesUtil;
+import com.chf.wanandroid.ui.utils.SnackBarUtil;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author 17919
  * @date 2018/4/8
  */
 
-public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implements LoginView {
+public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implements LoginView, TextWatcher {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.app_bar)
@@ -36,7 +44,8 @@ public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implement
     EditText loginInputPassword;
     @BindView(R.id.login_password_til)
     TextInputLayout loginPasswordTil;
-
+    @BindView(R.id.login_tv)
+    TextView loginTv;
     @BindView(R.id.login_ll)
     LinearLayout mLoginLayout;
     @BindView(R.id.login_main_layout)
@@ -44,9 +53,10 @@ public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implement
 
     @Override
     public void initView() {
-        //2、通过Resources获取
-        //DisplayMetrics dm = getResources().getDisplayMetrics();
+        loginInputUsername.addTextChangedListener(this);
+        loginInputPassword.addTextChangedListener(this);
     }
+
 
     @Override
     protected void initToolBar() {
@@ -80,6 +90,14 @@ public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implement
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.login_tv)
+    void click() {
+        String pwd = loginInputPassword.getText().toString();
+        String userName = loginInputUsername.getText().toString();
+        if (presenter.checkParams(pwd, userName, loginPasswordTil, loginUsernameTil)) {
+            presenter.goLogin(pwd, userName);
+        }
+    }
 
     @Override
     protected int provideContentViewId() {
@@ -97,5 +115,45 @@ public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implement
         context.startActivity(intent);
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (loginInputPassword.getText().length() > 0 && loginInputUsername.getText().length() > 0) {
+            loginTv.setEnabled(true);
+        } else {
+            loginTv.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    /**
+     * 登陆成功
+     *
+     * @param userBean
+     */
+    @Override
+    public void loginSuccess(UserBean userBean) {
+        SharedPreferencesUtil.put(this, BaseConfig.IS_LOGIN, true);
+        SnackBarUtil.showTipWithoutAction(mMainView, "登录成功");
+        MainActivity.actionStar(this);
+        this.finish();
+    }
+
+    @Override
+    public void showProgress() {
+        setLoading(true);
+    }
+
+    @Override
+    public void hideProgress() {
+        setLoading(false);
+    }
 }

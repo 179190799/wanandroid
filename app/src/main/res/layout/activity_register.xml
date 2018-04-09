@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_main_layout"
+    android:id="@+id/register_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/theme_white"
@@ -10,7 +10,7 @@
 
 
     <LinearLayout
-        android:id="@+id/login_ll"
+        android:id="@+id/register_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
@@ -32,12 +32,12 @@
 
         <!--  Username Label -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/login_username_til"
+            android:id="@+id/register_username_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/login_input_username"
+                android:id="@+id/register_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
@@ -48,13 +48,13 @@
 
         <!--  Password Label -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/login_password_til"
+            android:id="@+id/register_password_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
 
             <EditText
-                android:id="@+id/login_input_password"
+                android:id="@+id/register_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -63,15 +63,32 @@
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
+        <!--  rePassword Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/register_repassword_til"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/register_reinput_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="RePassword"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
         <TextView
-            android:id="@+id/login_tv"
+            android:id="@+id/register_tv"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
             android:background="@drawable/button_selector"
             android:enabled="false"
-            android:text="登陆"
+            android:text="注册"
             android:textColor="@color/theme_white" />
 
     </LinearLayout>

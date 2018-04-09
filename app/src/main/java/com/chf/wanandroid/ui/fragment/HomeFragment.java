@@ -10,6 +10,7 @@ import com.chf.wanandroid.base.BaseFragment;
 import com.chf.wanandroid.mvp.model.HomeModel;
 import com.chf.wanandroid.mvp.presenter.HomeFragmentPresenter;
 import com.chf.wanandroid.mvp.view.HomeFragmentView;
+import com.chf.wanandroid.ui.Events.RefreshEvent;
 import com.chf.wanandroid.ui.adapter.HomeAdapter;
 import com.chf.wanandroid.ui.utils.ToastUtil;
 import com.chf.wanandroid.ui.widget.AutoRecyclerView;
@@ -17,6 +18,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 
@@ -56,7 +60,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentPresenter> implements
 
     @Override
     public void initView() {
-
+        EventBus.getDefault().register(this);
         refreshView.post(new Runnable() {
             @Override
             public void run() {
@@ -64,7 +68,6 @@ public class HomeFragment extends BaseFragment<HomeFragmentPresenter> implements
             }
         });
         initRecyclerView();
-
     }
 
     @Override
@@ -89,7 +92,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentPresenter> implements
         homeAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                presenter.onItemClick(view,position,homeModel.articleBean.getDatas());
+                presenter.onItemClick(view, position, homeModel.articleBean.getDatas());
             }
         });
 
@@ -133,4 +136,23 @@ public class HomeFragment extends BaseFragment<HomeFragmentPresenter> implements
             presenter.getHomeData(page);
         }
     }
+
+    @Subscribe
+    public void refreshEvent(RefreshEvent event) {
+        if (event == null) {
+            return;
+        }
+
+        if (event.type == 1) {
+            refreshView.autoRefresh();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
 }

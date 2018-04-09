@@ -10,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chf.wanandroid.R;
+import com.chf.wanandroid.http.BaseResponse;
+import com.chf.wanandroid.http.ErrorConsumer;
+import com.chf.wanandroid.http.OiApiManager;
 import com.chf.wanandroid.mvp.model.HomeModel;
 import com.chf.wanandroid.mvp.model.bean.ArticleBean;
 import com.chf.wanandroid.mvp.model.bean.BannerBean;
 import com.chf.wanandroid.ui.glide.BannerUtils;
+import com.chf.wanandroid.ui.utils.StringUtils;
 import com.chf.wanandroid.ui.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -23,6 +27,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 17919
@@ -122,6 +129,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             final ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
             contentViewHolder.itemView.setTag(position - 1);
             final ArticleBean.DatasBean datasBean = mData.articleBean.getDatas().get(position - 1);
+
             if (datasBean.isCollect()) {
 //                是您的收藏
                 contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
@@ -139,12 +147,46 @@ public class HomeAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
 //                    检测是否登陆
+                    if (!StringUtils.isLogin(mContext)) {
+                        ToastUtil.showShort(mContext, "请先登录");
+                        return;
+                    }
                     if (datasBean.isCollect()) {
 //                        取消收藏
-                        contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection_gray);
+                        OiApiManager.getApiServie().unCollectionFromArticle(datasBean.getId())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<BaseResponse>() {
+                                    @Override
+                                    public void accept(BaseResponse baseResponse) throws Exception {
+                                        if (baseResponse.errorCode == 0) {
+                                            ToastUtil.showShort(mContext, "取消收藏成功");
+                                            contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection_gray);
+                                        } else {
+                                            ToastUtil.showShort(mContext, baseResponse.errorMsg);
+                                        }
+
+                                    }
+                                }, new ErrorConsumer(mContext));
+
+
                     } else {
 //                        收藏
-                        contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
+                        OiApiManager.getApiServie().collectionArticle(datasBean.getId())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<BaseResponse>() {
+                                    @Override
+                                    public void accept(BaseResponse baseResponse) throws Exception {
+                                        if (baseResponse.errorCode == 0) {
+                                            ToastUtil.showShort(mContext, "收藏成功");
+                                            contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
+                                        } else {
+                                            ToastUtil.showShort(mContext, baseResponse.errorMsg);
+                                        }
+                                    }
+                                }, new ErrorConsumer(mContext));
+
                     }
                 }
             });
