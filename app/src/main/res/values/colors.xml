@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0089FD</color>
+    <color name="colorPrimaryDark">#215077</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--分割线颜色-->
+    <color name="gray_little">#E4E4E4</color>
+    <color name="gray_middle">#A5A5A5</color>
+    <color name="gray_better">#6c6a6a</color>
+
+    <color name="theme_white">#ffffff</color>
+    <color name="theme_focus">#1f91f2</color>
+
+    <!--背景颜色-->
+    <color name="theme_bg">#F0F0F0</color>
+
+    <!--toolBar Color-->
+    <color name="tool_bar_color">#0089FD</color>
+    <!--没有按下的颜色-->
+    <color name="no_press_button">#550089FD</color>
+
+
+    <color name="black">#000</color>
+
+
+</resources>
