@@ -74,7 +74,7 @@ public class ErrorConsumer implements Consumer<Throwable> {
             ToastUtil.showShort(mContext,"访问地址异常，请稍后重试！");
 
         } else {
-            ToastUtil.showShort(mContext,"未知错误");
+            ToastUtil.showShort(mContext,e.getMessage());
         }
 
         onError(e);

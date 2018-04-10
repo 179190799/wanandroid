@@ -10,7 +10,7 @@ import com.chf.wanandroid.base.BaseFragment;
 import com.chf.wanandroid.mvp.model.HomeModel;
 import com.chf.wanandroid.mvp.presenter.HomeFragmentPresenter;
 import com.chf.wanandroid.mvp.view.HomeFragmentView;
-import com.chf.wanandroid.ui.Events.RefreshEvent;
+import com.chf.wanandroid.ui.events.RefreshEvent;
 import com.chf.wanandroid.ui.adapter.HomeAdapter;
 import com.chf.wanandroid.ui.utils.ToastUtil;
 import com.chf.wanandroid.ui.widget.AutoRecyclerView;

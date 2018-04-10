@@ -8,7 +8,7 @@ package com.chf.wanandroid.ui.base;
 
 public class BaseConfig {
     /**
-     * 登陆状态
+     * 登录状态
      */
     public final static String IS_LOGIN = "is_login";
 

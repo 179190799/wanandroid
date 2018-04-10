@@ -84,7 +84,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         }
 
 
-        if (TextUtils.equals(pwd, rePwd)) {
+        if (!TextUtils.equals(pwd, rePwd)) {
             rePwdLayout.setError("两次密码不一样");
             return false;
         }

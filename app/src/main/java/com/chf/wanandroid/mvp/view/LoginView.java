@@ -11,7 +11,7 @@ import com.chf.wanandroid.mvp.model.bean.UserBean;
 
 public interface LoginView extends BaseView {
     /**
-     * 登陆成功
+     * 登录成功
      * @param userBean
      */
     void loginSuccess(UserBean userBean);

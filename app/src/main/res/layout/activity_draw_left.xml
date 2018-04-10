@@ -106,7 +106,7 @@
                 android:background="@color/theme_white"
                 android:enabled="true"
                 android:layout_marginTop="@dimen/dp_40"
-                android:text="退出登陆"
+                android:text="退出登录"
                 android:textColor="@color/gray_middle" />
 
         </LinearLayout>

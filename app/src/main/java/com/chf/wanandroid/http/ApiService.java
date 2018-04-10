@@ -49,6 +49,9 @@ public interface ApiService {
      */
     @GET("/tree/json")
     Observable<BaseResponse<List<ClassBean>>> getClassData();
+    
+//    @GET("/article/list/0/json?cid=60")
+    
 
     /**
      * 热门网址

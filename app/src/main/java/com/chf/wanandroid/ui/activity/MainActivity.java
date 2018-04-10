@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,11 +23,14 @@ import com.chf.wanandroid.R;
 import com.chf.wanandroid.base.BaseToolBarActivity;
 import com.chf.wanandroid.mvp.presenter.MainActivityPresenter;
 import com.chf.wanandroid.mvp.view.MainActivityView;
-import com.chf.wanandroid.ui.Events.RefreshEvent;
+import com.chf.wanandroid.ui.base.BaseConfig;
+import com.chf.wanandroid.ui.events.RefreshEvent;
 import com.chf.wanandroid.ui.fragment.ClassFragment;
 import com.chf.wanandroid.ui.fragment.HomeFragment;
 import com.chf.wanandroid.ui.fragment.HotFragment;
+import com.chf.wanandroid.ui.utils.SharedPreferencesUtil;
 import com.chf.wanandroid.ui.utils.StringUtils;
+import com.chf.wanandroid.ui.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -90,7 +95,7 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
     private void initDrawLayout() {
 
         if (!StringUtils.isLogin(this)) {
-            drawQuitLoginTv.setText("登陆");
+            drawQuitLoginTv.setText("登录");
         }
 
         mDrawLayout.addDrawerListener(presenter.mSimpleDrawerListener);
@@ -245,6 +250,10 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
                 break;
             case R.id.draw_my_collection_layout:
 //                我的收藏
+                if (!StringUtils.isLogin(this)) {
+                    ToastUtil.showShort(mContext, "请先登录");
+                    return;
+                }
                 MyCollectionActivity.actionStart(this);
                 break;
             case R.id.draw_about_layout:
@@ -252,12 +261,21 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
 
                 break;
             case R.id.draw_quit_login_tv:
+                if (mDrawLayout.isDrawerOpen(Gravity.LEFT)) {
+//                    关闭
+                    mDrawLayout.closeDrawer(Gravity.LEFT);
+                }
                 if (!StringUtils.isLogin(this)) {
-//                    登陆
+//                    登录
                     LoginActivity.actionStart(this);
                 } else {
-//                退出登陆
-
+//                退出登录
+//                    清除Cookie
+                    CookieSyncManager.createInstance(getApplicationContext());
+                    CookieManager.getInstance().removeAllCookie();
+                    SharedPreferencesUtil.put(mContext, BaseConfig.IS_LOGIN, false);
+                    EventBus.getDefault().post(new RefreshEvent(1));
+                    drawQuitLoginTv.setText("登录");
                 }
                 break;
             default:
@@ -328,7 +346,7 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
 
     @Subscribe
     public void refreshEvent(RefreshEvent event) {
-        presenter.refreshLayout(event,drawQuitLoginTv);
+        presenter.refreshLayout(event, drawQuitLoginTv);
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.chf.wanandroid.http.ErrorConsumer;
 import com.chf.wanandroid.http.OiApiManager;
 import com.chf.wanandroid.mvp.model.bean.UserBean;
 import com.chf.wanandroid.mvp.view.LoginView;
-import com.chf.wanandroid.ui.Events.RefreshEvent;
+import com.chf.wanandroid.ui.events.RefreshEvent;
 import com.chf.wanandroid.ui.activity.RegisterActivity;
 
 import org.greenrobot.eventbus.EventBus;

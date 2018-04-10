@@ -34,7 +34,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected T presenter;
     private Unbinder bind;
     private ProgressDialog waitDialog;
-    private Context mContext;
+    public Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -130,9 +130,12 @@ public class HomeAdapter extends RecyclerView.Adapter {
             contentViewHolder.itemView.setTag(position - 1);
             final ArticleBean.DatasBean datasBean = mData.articleBean.getDatas().get(position - 1);
 
+
             if (datasBean.isCollect()) {
 //                是您的收藏
-                contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
+                if (StringUtils.isLogin(mContext)) {
+                    contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
+                }
             } else {
                 contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection_gray);
 
@@ -146,7 +149,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             contentViewHolder.mCollectionIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    检测是否登陆
+//                    检测是否登录
                     if (!StringUtils.isLogin(mContext)) {
                         ToastUtil.showShort(mContext, "请先登录");
                         return;

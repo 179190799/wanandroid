@@ -3,7 +3,7 @@ package com.chf.wanandroid.mvp.model.bean;
 import java.util.List;
 
 /**
- * 登陆
+ * 登录
  *
  * @author 17919
  * @date 2018/4/9

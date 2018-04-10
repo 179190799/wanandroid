@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -96,6 +97,21 @@ public class MyCollectionActivity extends BaseToolBarActivity<MyCollectionPresen
         presenter.init();
     }
 
+    @Override
+    protected void initToolBar() {
+        super.initToolBar();
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(canBack());
+            actionBar.setTitle("我的收藏");
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+    
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, MyCollectionActivity.class);

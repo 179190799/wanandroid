@@ -1,0 +1,6 @@
+ext {
+    android = [
+            versionCode: 1,
+            versionName: "wanandroid_v1.0.0"
+    ]
+}

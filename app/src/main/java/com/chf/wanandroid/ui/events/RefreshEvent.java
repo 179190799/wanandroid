@@ -1,4 +1,4 @@
-package com.chf.wanandroid.ui.Events;
+package com.chf.wanandroid.ui.events;
 
 /**
  * 用于刷新的EventBean

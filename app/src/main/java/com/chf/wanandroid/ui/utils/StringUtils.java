@@ -16,7 +16,7 @@ public class StringUtils {
 
 
     /**
-     * 是否登陆
+     * 是否登录
      * @param context
      * @return
      */

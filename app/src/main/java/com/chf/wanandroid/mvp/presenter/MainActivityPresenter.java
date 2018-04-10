@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.chf.wanandroid.base.BasePresenter;
 import com.chf.wanandroid.mvp.view.MainActivityView;
-import com.chf.wanandroid.ui.Events.RefreshEvent;
+import com.chf.wanandroid.ui.events.RefreshEvent;
 
 /**
  * MainActivity Presenter

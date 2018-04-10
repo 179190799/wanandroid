@@ -64,7 +64,7 @@ public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implement
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(canBack());
-            actionBar.setTitle("登陆");
+            actionBar.setTitle("登录");
         }
     }
 
@@ -135,7 +135,7 @@ public class LoginActivity extends BaseToolBarActivity<LoginPresenter> implement
     }
 
     /**
-     * 登陆成功
+     * 登录成功
      *
      * @param userBean
      */
