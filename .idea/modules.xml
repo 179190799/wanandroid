@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\project\wanandroid\wanandroid\app\app.iml" filepath="D:\project\wanandroid\wanandroid\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/wanandroid.iml" filepath="$PROJECT_DIR$/wanandroid.iml" />
+      <module fileurl="file://D:\project\wanandroid\wanandroid\wanandroid.iml" filepath="D:\project\wanandroid\wanandroid\wanandroid.iml" />
     </modules>
   </component>
 </project>
