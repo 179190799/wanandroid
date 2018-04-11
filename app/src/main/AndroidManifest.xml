@@ -50,6 +50,7 @@
         <activity android:name=".ui.activity.MyCollectionActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
+        <activity android:name=".ui.activity.ClassDetailActivity"/>
 
         <service
             android:name=".ui.service.MyPushService"

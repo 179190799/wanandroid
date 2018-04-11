@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chf.wanandroid.R;
 import com.chf.wanandroid.mvp.model.bean.ClassBean;
-import com.chf.wanandroid.ui.utils.ToastUtil;
+import com.chf.wanandroid.ui.activity.ClassDetailActivity;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class ClassficationAdapter extends RecyclerView.Adapter {
         classficationLabelAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int mPosition) {
-                ToastUtil.showShort(mContext, mData.get(position).getChildren().get(mPosition).getName());
+                ClassDetailActivity.actionStart(mContext,mData.get(position).getChildren().get(mPosition).getName(),mData.get(position).getChildren().get(mPosition).getId()+"");
             }
         });
     }

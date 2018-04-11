@@ -16,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * 接口API 文档
@@ -49,9 +50,15 @@ public interface ApiService {
      */
     @GET("/tree/json")
     Observable<BaseResponse<List<ClassBean>>> getClassData();
-    
-//    @GET("/article/list/0/json?cid=60")
-    
+
+    /**
+     * 知识体系详情
+     * @param page
+     * @param id 
+     * @return
+     */
+    @GET("/article/list/{page}/json")
+    Observable<BaseResponse<ArticleBean>> getClassDetailData(@Path("page")int page, @Query("cid")String id);
 
     /**
      * 热门网址

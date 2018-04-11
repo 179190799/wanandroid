@@ -16,6 +16,7 @@ import com.chf.wanandroid.http.OiApiManager;
 import com.chf.wanandroid.mvp.model.HomeModel;
 import com.chf.wanandroid.mvp.model.bean.ArticleBean;
 import com.chf.wanandroid.mvp.model.bean.BannerBean;
+import com.chf.wanandroid.ui.activity.BaseWebViewActivity;
 import com.chf.wanandroid.ui.glide.BannerUtils;
 import com.chf.wanandroid.ui.utils.StringUtils;
 import com.chf.wanandroid.ui.utils.ToastUtil;
@@ -98,7 +99,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (getItemViewType(position) == banner_type) {
             final BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
             List<String> titles = new ArrayList<>();
@@ -119,7 +120,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
             bannerViewHolder.mBanner.setOnBannerListener(new OnBannerListener() {
                 @Override
                 public void OnBannerClick(int i) {
-                    ToastUtil.showShort(mContext, i + "");
+//                    ToastUtil.showShort(mContext, i + "");
+                    BaseWebViewActivity.actionStart(mContext, mData.bannerBeans.get(i).getUrl());
                 }
             });
 
@@ -129,22 +131,11 @@ public class HomeAdapter extends RecyclerView.Adapter {
             final ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
             contentViewHolder.itemView.setTag(position - 1);
             final ArticleBean.DatasBean datasBean = mData.articleBean.getDatas().get(position - 1);
-
-
-            if (datasBean.isCollect()) {
-//                是您的收藏
-                if (StringUtils.isLogin(mContext)) {
-                    contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
-                }
-            } else {
-                contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection_gray);
-
-            }
-
             contentViewHolder.mAuthorTv.setText(datasBean.getAuthor());
             contentViewHolder.mChapterTv.setText(datasBean.getChapterName());
             contentViewHolder.mNiceTimeTv.setText(datasBean.getNiceDate());
             contentViewHolder.mTitleTv.setText(datasBean.getTitle());
+
 
             contentViewHolder.mCollectionIv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -193,6 +184,21 @@ public class HomeAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
+
+
+            if (!StringUtils.isLogin(mContext)) {
+                contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection_gray);
+                return;
+            }
+
+            if (datasBean.isCollect()) {
+//                是您的收藏
+                contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection);
+
+            } else {
+                contentViewHolder.mCollectionIv.setImageResource(R.drawable.icon_collection_gray);
+
+            }
 
 
         }

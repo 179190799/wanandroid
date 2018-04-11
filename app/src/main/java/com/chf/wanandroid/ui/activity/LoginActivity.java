@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 登录页面
  * @author 17919
  * @date 2018/4/8
  */

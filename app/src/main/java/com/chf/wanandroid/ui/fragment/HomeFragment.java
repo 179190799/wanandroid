@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.BindView;
 
 /**
+ * 首页fragment
  * @author 17919
  * @date 2018/3/20
  */

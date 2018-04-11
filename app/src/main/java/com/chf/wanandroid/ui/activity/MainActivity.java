@@ -39,6 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 主页
  * @author 17919
  */
 public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> implements MainActivityView {

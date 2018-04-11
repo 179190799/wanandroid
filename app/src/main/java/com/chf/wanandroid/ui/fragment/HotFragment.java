@@ -23,6 +23,8 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * 热门fragment
+ *
  * @author 17919
  * @date 2018/3/20
  */
@@ -72,7 +74,7 @@ public class HotFragment extends BaseFragment<HotFragmentPresenter> implements H
         hotWebAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                presenter.onItemClick(view,position,webBeans);
+                presenter.onItemClick(view, position, webBeans);
             }
         });
 
