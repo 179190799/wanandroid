@@ -51,6 +51,8 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.ClassDetailActivity"/>
+        <activity android:name=".ui.activity.AboutActivity"/>
+        <activity android:name=".ui.activity.OnlyActivity"/>
 
         <service
             android:name=".ui.service.MyPushService"

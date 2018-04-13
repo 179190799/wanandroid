@@ -10,8 +10,10 @@ import com.chf.wanandroid.http.ErrorConsumer;
 import com.chf.wanandroid.http.OiApiManager;
 import com.chf.wanandroid.mvp.model.bean.UserBean;
 import com.chf.wanandroid.mvp.view.LoginView;
+import com.chf.wanandroid.ui.base.BaseConfig;
 import com.chf.wanandroid.ui.events.RefreshEvent;
 import com.chf.wanandroid.ui.activity.RegisterActivity;
+import com.chf.wanandroid.ui.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,6 +34,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     public void goLogin(String pwd, String userName) {
+        SharedPreferencesUtil.put(mContext, BaseConfig.USER_NAME, userName);
+        SharedPreferencesUtil.put(mContext, BaseConfig.USER_PWD, pwd);
         iView.showProgress();
         disposable = OiApiManager.getApiServie().goLogin(userName, pwd)
                 .compose(new BaseCompose<UserBean>())

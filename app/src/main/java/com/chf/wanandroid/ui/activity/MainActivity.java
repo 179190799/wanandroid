@@ -40,6 +40,7 @@ import butterknife.OnClick;
 
 /**
  * 主页
+ *
  * @author 17919
  */
 public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> implements MainActivityView {
@@ -248,6 +249,7 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
         switch (view.getId()) {
             case R.id.draw_my_loved_layout:
 //                onlyLoved
+                OnlyActivity.actionStart(mContext);
                 break;
             case R.id.draw_my_collection_layout:
 //                我的收藏
@@ -259,6 +261,7 @@ public class MainActivity extends BaseToolBarActivity<MainActivityPresenter> imp
                 break;
             case R.id.draw_about_layout:
 //                关于
+                AboutActivity.actionStart(mContext);
 
                 break;
             case R.id.draw_quit_login_tv:
