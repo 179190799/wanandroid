@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
@@ -51,7 +50,7 @@ public class WebViewPresenter extends BasePresenter<WebBaseView> {
     }
 
 
-    private class ChromeClient extends WebChromeClient {
+    private class ChromeClient extends ProgressWebView.MyWebChromeClient {
         @Override
         public void onReceivedTitle(android.webkit.WebView view, String title) {
             super.onReceivedTitle(view, title);
@@ -72,6 +71,7 @@ public class WebViewPresenter extends BasePresenter<WebBaseView> {
 
     /**
      * 刷新
+     *
      * @param webView
      */
     public void refresh(android.webkit.WebView webView) {
@@ -80,15 +80,17 @@ public class WebViewPresenter extends BasePresenter<WebBaseView> {
 
     /**
      * 复制链接
+     *
      * @param view
      * @param text
      */
     public void copyUrl(View view, String text) {
-        AppInfoUtil.copyToClipboard(view,text, "复制成功");
+        AppInfoUtil.copyToClipboard(view, text, "复制成功");
     }
 
     /**
      * 用浏览器打开
+     *
      * @param url
      */
     public void openInBrowser(String url) {

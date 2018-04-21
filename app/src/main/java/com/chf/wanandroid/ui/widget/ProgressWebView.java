@@ -19,7 +19,7 @@ import com.chf.wanandroid.R;
  */
 
 public class ProgressWebView extends WebView {
-    private ProgressBar mProgressBar;
+    private static ProgressBar mProgressBar;
 
     public ProgressWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -32,10 +32,10 @@ public class ProgressWebView extends WebView {
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.web_progress_bar_states);
         mProgressBar.setProgressDrawable(drawable);
         addView(mProgressBar);
-        setWebChromeClient(new WebChromeClient());
+        setWebChromeClient(new MyWebChromeClient());
     }
 
-    public class WebChromeClient extends android.webkit.WebChromeClient {
+    public static class MyWebChromeClient extends android.webkit.WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             if (newProgress == 100) {
