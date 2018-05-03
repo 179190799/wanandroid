@@ -49,4 +49,24 @@ public class DensityUtil {
 			int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
 			return size;
 		}
+
+    /**
+     * 获取手机屏幕的宽
+     *
+     * @param context
+     * @return
+     */
+    public static int windowsWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    /**
+     * 获取手机屏幕的高
+     *
+     * @param context
+     * @return
+     */
+    public static int windowsheight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
 }  
